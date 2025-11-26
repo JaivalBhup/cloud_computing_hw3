@@ -105,13 +105,12 @@
         .join(', ');
 
       try {
-        const fileContent = await readFileAsBinary(file);
-        console.log(fileContent);
+        // const fileContent = await readFileAsBinary(file);
+        // console.log(fileContent);
          // Required by your SDK — custom labels belong in params
         const params = {
           "x-amz-meta-customLabels": customLabels,
-          "filename": sanitizeFilename(file.name),
-          "Content-Type": file.type
+          "filename": sanitizeFilename(file.name)
         };
 
       const additionalParams = {
@@ -122,7 +121,7 @@
       };
 
 
-        const res = await sdk.uploadPut(params, fileContent, additionalParams);
+        const res = await sdk.uploadPut(params, file, additionalParams);
         alert('Upload successful');
       } catch (err) {
         console.error(err);
