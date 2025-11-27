@@ -27,16 +27,16 @@ phases:
       - cd lambda-functions/search-photos
       - cp lambda_function.py package/
       - cd package
-      - zip -r ../../lambda_search.zip .
-      - cd ../..
+      - zip -r ../../../lambda_search.zip .
+      - cd ../../..
 
       # INDEX PHOTOS LAMBDA
       - echo "Packaging index-photos Lambda..."
       - cd lambda-functions/index-photos
       - cp lambda_function.py package/
       - cd package
-      - zip -r ../../lambda_index.zip .
-      - cd ../..
+      - zip -r ../../../lambda_index.zip .
+      - cd ../../..
       
   post_build:
     commands:
