@@ -1,10 +1,5 @@
 version: 0.2
 
-env:
-  variables:
-    SEARCH_LAMBDA_NAME: "search-photos" 
-    INDEX_LAMBDA_NAME: "index-photos" 
-
 phases:
   install:
     runtime-versions:
@@ -41,10 +36,10 @@ phases:
   post_build:
     commands:
       - echo "Deploying search-photos Lambda..."
-      - aws lambda update-function-code --function-name $SEARCH_LAMBDA_NAME --zip-file fileb://lambda_search.zip
+      - aws lambda update-function-code --function-name search-photos --zip-file fileb://lambda_search.zip
 
       - echo "Deploying index-photos Lambda..."
-      - aws lambda update-function-code --function-name $INDEX_LAMBDA_NAME --zip-file fileb://lambda_index.zip
+      - aws lambda update-function-code --function-name index-photos --zip-file fileb://lambda_index.zip
 
 artifacts:
   files:
