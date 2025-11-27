@@ -1,0 +1,52 @@
+version: 0.2
+
+env:
+  variables:
+    SEARCH_LAMBDA_NAME: "search-photos" 
+    INDEX_LAMBDA_NAME: "index-photos" 
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - echo "Installing dependencies for search-photos..."
+      - cd lambda_functions/search-photos
+      - pip install -r requirements.txt -t package || echo "No requirements.txt found"
+      - cd ../../..
+
+      - echo "Installing dependencies for index-photos..."
+      - cd lambda_functions/index-photos
+      - pip install -r requirements.txt -t package || echo "No requirements.txt found"
+      - cd ../../..
+      
+  build:
+    commands:
+      # SEARCH PHOTOS LAMBDA
+      - echo "Packaging search-photos Lambda..."
+      - cd lambda_functions/search-photos
+      - cp lambda_function.py package/
+      - cd package
+      - zip -r ../../../lambda_search.zip .
+      - cd ../../..
+
+      # INDEX PHOTOS LAMBDA
+      - echo "Packaging index-photos Lambda..."
+      - cd lambda_functions/index-photos
+      - cp lambda_function.py package/
+      - cd package
+      - zip -r ../../../lambda_index.zip .
+      - cd ../../..
+      
+  post_build:
+    commands:
+      - echo "Deploying search-photos Lambda..."
+      - aws lambda update-function-code --function-name $SEARCH_LAMBDA_NAME --zip-file fileb://lambda_search.zip
+
+      - echo "Deploying index-photos Lambda..."
+      - aws lambda update-function-code --function-name $INDEX_LAMBDA_NAME --zip-file fileb://lambda_index.zip
+
+artifacts:
+  files:
+    - lambda_search.zip
+    - lambda_index.zip
