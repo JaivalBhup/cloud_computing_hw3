@@ -11,12 +11,12 @@ phases:
       python: 3.12
     commands:
       - echo "Installing dependencies for search-photos..."
-      - cd lambda_functions/search-photos
+      - cd lambda-functions/search-photos
       - pip install -r requirements.txt -t package || echo "No requirements.txt found"
       - cd ../../..
 
       - echo "Installing dependencies for index-photos..."
-      - cd lambda_functions/index-photos
+      - cd lambda-functions/index-photos
       - pip install -r requirements.txt -t package || echo "No requirements.txt found"
       - cd ../../..
       
@@ -24,7 +24,7 @@ phases:
     commands:
       # SEARCH PHOTOS LAMBDA
       - echo "Packaging search-photos Lambda..."
-      - cd lambda_functions/search-photos
+      - cd lambda-functions/search-photos
       - cp lambda_function.py package/
       - cd package
       - zip -r ../../../lambda_search.zip .
@@ -32,7 +32,7 @@ phases:
 
       # INDEX PHOTOS LAMBDA
       - echo "Packaging index-photos Lambda..."
-      - cd lambda_functions/index-photos
+      - cd lambda-functions/index-photos
       - cp lambda_function.py package/
       - cd package
       - zip -r ../../../lambda_index.zip .
