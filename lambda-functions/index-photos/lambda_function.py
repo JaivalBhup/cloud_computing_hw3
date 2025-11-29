@@ -59,8 +59,8 @@ def lambda_handler(event, context):
         
         logger.info("Final combined label object constructed.")
         logger.info(custom_json_object)
-        # logger.info("Indexing the document")
-        # index_document(custom_json_object)
+        logger.info("Indexing the document")
+        index_document(custom_json_object)
         return ok()
     
     except Exception as e:

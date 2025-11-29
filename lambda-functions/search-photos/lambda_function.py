@@ -29,8 +29,8 @@ def lambda_handler(event, context):
         keywords = [slots[keyword]["value"]["interpretedValue"] for keyword in slots.keys() if slots[keyword]]
         logger.info("Keywords interpreted:" +str(keywords))
         # Use response to search using open search
-        results = []
-        # results = search_with_opensearch(keywords)
+        # results = []
+        results = search_with_opensearch(keywords)
         response_body = "Search for keywords: "+str(keywords)
         status_code = 200
         print(keywords)
@@ -54,8 +54,8 @@ def search_with_opensearch(labels):
     session = boto3.Session()
     credentials = session.get_credentials()
     region = session.region_name
-    OPENSEARCH_URL = os.environ["OPENSEARCH_URL"]  
-    OPENSEARCH_INDEX_NAME = os.environ["OPENSEARCH_INDEX_NAME"]  
+    OPENSEARCH_HOST = os.environ["OPENSEARCH_HOST"]  
+    OPENSEARCH_INDEX = os.environ["OPENSEARCH_INDEX"]  
     awsauth = AWS4Auth(
         credentials.access_key,
         credentials.secret_key,
@@ -83,7 +83,7 @@ def search_with_opensearch(labels):
     }
     headers = {"Content-Type": "application/json"}
     res = requests.get(
-        f"{OPENSEARCH_URL}/{OPENSEARCH_INDEX_NAME}/_search", 
+        f"{OPENSEARCH_HOST}/{OPENSEARCH_INDEX}/_search", 
         headers=headers, 
         auth=awsauth,
         data=json.dumps(query)
