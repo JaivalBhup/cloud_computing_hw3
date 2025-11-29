@@ -71,7 +71,6 @@ def search_with_opensearch(labels):
         #     "createdTimestamp": head_object["LastModified"].isoformat(),
         #     "labels": all_labels
         # }
-    # What should be my query here?
     query = {
         "query": {
             "bool": {
@@ -83,7 +82,7 @@ def search_with_opensearch(labels):
     }
     headers = {"Content-Type": "application/json"}
     res = requests.get(
-        f"{OPENSEARCH_HOST}/{OPENSEARCH_INDEX}/_search", 
+        f"https://{OPENSEARCH_HOST}/{OPENSEARCH_INDEX}/_search", 
         headers=headers, 
         auth=awsauth,
         data=json.dumps(query)
