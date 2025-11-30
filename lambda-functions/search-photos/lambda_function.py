@@ -31,11 +31,11 @@ def lambda_handler(event, context):
         # Use response to search using open search
         # results = []
         results = search_with_opensearch(keywords)
-        response_body = "Search for keywords: "+str(keywords)
+        response_body = "Searching for keywords: "+str(keywords)
         status_code = 200
         print(keywords)
     else:
-        response_body = "No query text provided."
+        response_body = "No search text provided."
         results = []
         status_code = 400
 
