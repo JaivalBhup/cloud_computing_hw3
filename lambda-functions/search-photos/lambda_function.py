@@ -9,7 +9,7 @@ from requests_aws4auth import AWS4Auth
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
+# Pipline to search photos based on user query using AWS Lex and OpenSearch
 lex_client = boto3.client("lexv2-runtime")
 def lambda_handler(event, context):
     query_text = None
